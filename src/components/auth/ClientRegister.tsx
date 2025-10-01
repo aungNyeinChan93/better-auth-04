@@ -45,7 +45,7 @@ const ClientRegister = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterType>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -117,7 +117,11 @@ const ClientRegister = () => {
                   type="password"
                 />
               </div>
-              <Button className="mt-3 " type="submit" variant={"outline"}>
+              <Button
+                className="mt-3 "
+                type="submit"
+                variant={isSubmitting ? "destructive" : "default"}
+              >
                 Save changes
               </Button>
             </form>

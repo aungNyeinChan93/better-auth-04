@@ -1,3 +1,4 @@
+import TestSession from "@/components/tests/TestSession";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "@/features/authentications/auth-actions";
 import { auth } from "@/lib/auth";
@@ -10,12 +11,19 @@ const TestAuthPage = async () => {
   return (
     <React.Fragment>
       <main>
-        {session ? (
-          <pre>{JSON.stringify(session, null, 2)}</pre>
-        ) : (
-          <>{"Undefined Session"}</>
-        )}
+        <div className="flex justify-between">
+          {/* server session */}
+          <section>
+            {session ? (
+              <pre>{JSON.stringify(session, null, 2)}</pre>
+            ) : (
+              <>{"Undefined Session"}</>
+            )}
+          </section>
 
+          {/* clientSession */}
+          <TestSession />
+        </div>
         {session && (
           <>
             <form

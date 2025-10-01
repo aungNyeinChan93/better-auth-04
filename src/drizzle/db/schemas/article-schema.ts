@@ -3,6 +3,7 @@ import { usersTable } from "./auth-schema";
 import { relations } from "drizzle-orm";
 
 
+export type article = typeof articlesTable.$inferSelect
 
 export const articlesTable = pgTable('articles', {
     id: uuid().primaryKey().defaultRandom().notNull(),
