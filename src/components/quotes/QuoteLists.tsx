@@ -7,7 +7,11 @@ import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 
 const QuoteLists = () => {
-  const { data: quotes } = useSuspenseQuery({ ...getQuotesQueryOption() });
+  const { data: quotes, error } = useSuspenseQuery({
+    ...getQuotesQueryOption(),
+  });
+
+  if (error) return <p className="p-2 text-red-600">{error?.message}</p>;
   return (
     <React.Fragment>
       <main className="w-full px-10 ">

@@ -1,14 +1,6 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ClientLogin from "./ClientLogin";
+import ClientRegister from "./ClientRegister";
 
 export default function TestAuth() {
   return (
@@ -21,54 +13,12 @@ export default function TestAuth() {
 
         {/* login */}
         <TabsContent value="login">
-          <Card>
-            <CardHeader>
-              <CardTitle>Login</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  defaultValue=""
-                  placeholder="Enter Your Name"
-                />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" defaultValue="*********" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save changes</Button>
-            </CardFooter>
-          </Card>
+          <ClientLogin />
         </TabsContent>
 
         {/* register */}
         <TabsContent value="register">
-          <Card>
-            <CardHeader>
-              <CardTitle>Register</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="name">UserName</Label>
-                <Input id="name" type="text" placeholder="Enter Your Name" />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="text" placeholder="Enter Your Email" />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
+          <ClientRegister />
         </TabsContent>
       </Tabs>
     </div>
