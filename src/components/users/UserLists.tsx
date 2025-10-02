@@ -14,7 +14,7 @@ const UserLists = () => {
   if (error) return <>{error?.message}</>;
   return (
     <React.Fragment>
-      <main className="w-full min-h-auto container mx-auto p-10 max-w-xl">
+      <main className="w-full min-h-auto container mx-auto p-10 max-w-7xl">
         <UsersTable users={users} />
       </main>
     </React.Fragment>
