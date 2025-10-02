@@ -1,10 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from 'node:fs'
 import path from "node:path";
+import { checkArcject } from "../auth/[...all]/route";
+import { error } from "node:console";
 
 
 
 export async function POST(request: NextRequest) {
+
+    const decison = await checkArcject(request)
+
+    if (decison.isDenied()) {
+        if (decison.reason.isBot()) {
+            return NextResponse.json({ error: "Bot Detected" }, { status: 403 })
+        };
+
+        if (decison.reason.isRateLimit()) {
+            return NextResponse.json({ error: 'Request limit full' }, { status: 429 })
+        }
+    }
 
     const formData = await request.formData();
 
