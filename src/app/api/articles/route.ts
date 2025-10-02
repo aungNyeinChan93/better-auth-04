@@ -1,3 +1,5 @@
+import { db } from "@/drizzle/drizzle";
+import { articlesTable } from "@/drizzle/schema";
 import { auth } from "@/lib/auth";
 import { ArticleSchema } from "@/lib/Zod_Schem/articles-schema";
 import { headers } from "next/headers";
@@ -7,12 +9,12 @@ import path from "node:path";
 
 
 export async function POST(request: NextRequest) {
-
-    const session = await auth.api.getSession({ headers: await headers() })
-
     const formData = await request.formData();
 
     const file = formData.get('image') as File;
+    const title = formData.get('title') as string;
+    const body = formData.get('body') as string;
+
 
     if (!file) {
         return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -31,6 +33,22 @@ export async function POST(request: NextRequest) {
     };
 
     const image_url = `/articles/${fileName}`
-    return NextResponse.json({ image_url, user_id: session?.user?.id });
+
+    const session = await auth.api.getSession({ headers: await headers() })
+    const userId = session?.user?.id;
+    if (!userId) {
+        return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    try {
+        const [{ id }] = await db.insert(articlesTable)
+            .values({ title, body, user_id: userId, image: image_url, })
+            .returning({
+                id: articlesTable.id
+            });
+        return NextResponse.json({ id })
+    } catch (error) {
+        return NextResponse.json(error instanceof Error ? error?.message : 'create article fail');
+    }
 
 }

@@ -6,7 +6,7 @@ import { relations } from "drizzle-orm";
 export type article = typeof articlesTable.$inferSelect
 
 export const articlesTable = pgTable('articles', {
-    id: uuid().primaryKey().defaultRandom().notNull(),
+    id: uuid().primaryKey().defaultRandom(),
     title: text().notNull(),
     body: text().notNull(),
     image: text(),

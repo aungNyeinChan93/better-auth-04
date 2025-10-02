@@ -16,6 +16,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/authClient";
 import { useRouter } from "next/navigation";
+import { Separator } from "@radix-ui/react-separator";
 
 export type LoginType = z.infer<typeof LoginSchema>;
 export const LoginSchema = z.object({
@@ -99,6 +100,28 @@ const ClientLogin = () => {
                   id="password"
                   defaultValue="*********"
                 />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Button
+                  className="inline w-full p-2 "
+                  type="button"
+                  variant={"default"}
+                  onClick={() =>
+                    authClient.signIn.social({ provider: "github" })
+                  }
+                >
+                  GitHub
+                </Button>
+                <Button
+                  className="inline w-full p-2"
+                  type="button"
+                  variant={"destructive"}
+                  onClick={() =>
+                    authClient.signIn.social({ provider: "google" })
+                  }
+                >
+                  Google
+                </Button>
               </div>
             </CardContent>
             <CardFooter>

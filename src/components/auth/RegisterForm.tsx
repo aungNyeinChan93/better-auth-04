@@ -1,6 +1,7 @@
 "use client";
 
 import { registerAction } from "@/features/authentications/auth-actions";
+import { signIn } from "@/lib/authClient";
 import { redirect } from "next/navigation";
 import React, { useActionState } from "react";
 
@@ -62,10 +63,11 @@ const RegisterForm = () => {
 
           {/* Social logins */}
           <button
-            //   onClick={() => signIn("github", { callbackUrl: "/" })}
+            type="button"
+            onClick={() => signIn.social({ provider: "github" })}
             className="mb-2 w-full rounded-lg bg-gray-800 p-2 text-white hover:bg-gray-900"
           >
-            Continue with GitHub
+            Continue with Github
           </button>
           <button
             //   onClick={() => signIn("google", { callbackUrl: "/" })}
