@@ -1,3 +1,4 @@
+import TestUploadImage from "@/components/tests/TestUploadImage";
 import React from "react";
 
 const HomePage = async () => {
@@ -11,6 +12,8 @@ const HomePage = async () => {
           praesentium perspiciatis quibusdam et, laudantium labore alias culpa
           eaque totam.
         </p>
+
+        <TestUploadImage />
       </main>
     </React.Fragment>
   );

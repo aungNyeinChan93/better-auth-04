@@ -44,20 +44,19 @@ export type UsersAndArticles = Array<User & { articles: Article[] }>
 
 
 export async function GET(request: NextRequest) {
-    const decision = await checkArcject(request);
-    if (decision.isDenied()) {
-        console.warn("Arcjet blocked request:", { reason: decision.reason, });
-        if (decision.reason.isRateLimit()) {
-            return new NextResponse("Too Many Requests", { status: 429 });
-        }
-        if (decision.reason.isBot()) {
-            return new NextResponse("Bot Detected", { status: 403 });
-        }
-        return new NextResponse("Forbidden", { status: 403 });
-    };
 
     try {
-
+        const decision = await checkArcject(request);
+        if (decision.isDenied()) {
+            console.warn("Arcjet blocked request:", { reason: decision.reason, });
+            if (decision.reason.isRateLimit()) {
+                return new NextResponse("Too Many Requests", { status: 429 });
+            }
+            if (decision.reason.isBot()) {
+                return new NextResponse("Bot Detected", { status: 403 });
+            }
+            return new NextResponse("Forbidden", { status: 403 });
+        };
         const users: UsersAndArticles = await db.query.usersTable.findMany({
             with: { articles: true },
             orderBy: desc(usersTable.createdAt)
