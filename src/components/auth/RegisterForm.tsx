@@ -4,6 +4,7 @@ import { registerAction } from "@/features/authentications/auth-actions";
 import { signIn } from "@/lib/authClient";
 import { redirect } from "next/navigation";
 import React, { useActionState } from "react";
+import OauthBtn from "../share/OauthBtn";
 
 const RegisterForm = () => {
   const [state, formAction] = useActionState(registerAction, undefined);
@@ -62,7 +63,7 @@ const RegisterForm = () => {
           <div className="my-4 text-center text-gray-500">OR</div>
 
           {/* Social logins */}
-          <button
+          {/* <button
             type="button"
             onClick={() => signIn.social({ provider: "github" })}
             className="mb-2 w-full rounded-lg bg-gray-800 p-2 text-white hover:bg-gray-900"
@@ -74,7 +75,8 @@ const RegisterForm = () => {
             className="w-full rounded-lg bg-red-500 p-2 text-white hover:bg-red-600"
           >
             Continue with Google
-          </button>
+          </button> */}
+          <OauthBtn />
         </div>
       </div>
     </React.Fragment>
