@@ -3,6 +3,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import * as schema from '@/drizzle/schema'
 import { db } from "@/drizzle/drizzle";
 import { nextCookies } from "better-auth/next-js";
+import { sendPasswordResetEmail } from "./email/sendPasswordResetEmail";
+import { sendEmailVerificationEmail } from "./email/sendEmailVerificationEmail";
 
 
 export const auth = betterAuth({
@@ -12,8 +14,19 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
-        autoSignIn: false
+        autoSignIn: false,
+        // requireEmailVerification: true,
+        // sendResetPassword: async ({ user, url }) => {
+        //     await sendPasswordResetEmail({ user, url })
+        // }
     },
+    // emailVerification: {
+    //     autoSignInAfterVerification: true,
+    //     sendOnSignUp: true,
+    //     sendVerificationEmail: async ({ user, url }) => {
+    //         await sendEmailVerificationEmail({ user, url })
+    //     }
+    // },
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -28,5 +41,5 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         },
     },
-    plugins: [nextCookies()]
+    plugins: [nextCookies()],
 });
