@@ -12,7 +12,7 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
-        // autoSignIn: true
+        autoSignIn: false
     },
     socialProviders: {
         github: {

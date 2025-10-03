@@ -1,10 +1,19 @@
 "use client";
 
 import { LoginAction } from "@/features/authentications/auth-actions";
-import { redirect } from "next/navigation";
-import React, { useActionState } from "react";
+import { authClient } from "@/lib/authClient";
+import { redirect, useRouter } from "next/navigation";
+import React, { useActionState, useEffect } from "react";
 
 const LoginForm = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    authClient.getSession().then((session) => {
+      session.data != null ? router.push("/") : null;
+    });
+  }, [router]);
+
   const [state, formAction] = useActionState(LoginAction, undefined);
 
   if (state?.success) {

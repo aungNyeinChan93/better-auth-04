@@ -4,6 +4,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/authClient";
 import { oauthProvider } from "@/lib/oauthProvider";
+import toast from "react-hot-toast";
+import { error } from "console";
 
 const OauthBtn = () => {
   return (
@@ -26,10 +28,17 @@ const OauthBtn = () => {
             className=""
             variant={"destructive"}
             type="button"
-            onClick={() => {
-              authClient.signIn.social({
+            onClick={async () => {
+              const res = await authClient.signIn.social({
                 provider: oauthProvider.google.name,
               });
+              if (res.error) {
+                toast.error(
+                  res.error instanceof Error
+                    ? res.error?.message
+                    : "oauth error"
+                );
+              }
             }}
           >
             {oauthProvider.google.name}
