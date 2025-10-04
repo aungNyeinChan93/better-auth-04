@@ -4,9 +4,13 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const RegisterPage = async () => {
-  const session = await getServerSession();
-  if (session) {
-    return redirect("/");
+  try {
+    const session = await getServerSession();
+    if (session) {
+      return redirect("/");
+    }
+  } catch (error) {
+    console.error(error instanceof Error ? error?.message : "err");
   }
   return (
     <React.Fragment>

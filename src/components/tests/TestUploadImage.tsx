@@ -2,6 +2,7 @@
 
 import { uploadImage } from "@/tests/utils/upload-image";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { inspect } from "util";
 
 export default function TestUploadImage() {
   const [file, setFile] = useState<File | null>(null);
@@ -11,11 +12,13 @@ export default function TestUploadImage() {
     if (!file) {
       return null;
     }
-    const image_url = await uploadImage({
+    const [image_url, err] = await uploadImage({
       name: "players",
       file: file!,
     });
-
+    if (err) {
+      return alert(err);
+    }
     alert(image_url);
   };
   return (
