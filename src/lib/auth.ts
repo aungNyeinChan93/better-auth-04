@@ -15,18 +15,18 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
         autoSignIn: false,
-        // requireEmailVerification: true,
-        // sendResetPassword: async ({ user, url }) => {
-        //     await sendPasswordResetEmail({ user, url })
-        // }
+        requireEmailVerification: true,
+        sendResetPassword: async ({ user, url }) => {
+            await sendPasswordResetEmail({ user, url })
+        }
     },
-    // emailVerification: {
-    //     autoSignInAfterVerification: true,
-    //     sendOnSignUp: true,
-    //     sendVerificationEmail: async ({ user, url }) => {
-    //         await sendEmailVerificationEmail({ user, url })
-    //     }
-    // },
+    emailVerification: {
+        autoSignInAfterVerification: true,
+        sendOnSignUp: true,
+        sendVerificationEmail: async ({ user, url }) => {
+            await sendEmailVerificationEmail({ user, url })
+        }
+    },
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,

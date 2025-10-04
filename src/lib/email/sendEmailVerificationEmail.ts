@@ -1,16 +1,17 @@
-import { sendEmail } from "./sendEmail"
+import { sendEmail } from "./resend/seneEmail"
 
 export async function sendEmailVerificationEmail({ user, url }: {
     user: { name: string, email: string },
     url: string
 }) {
     return sendEmail({
-        to: user?.email,
-        subject: 'Email verification',
-        htmlbody: `
-            ${user.name} || ${user?.email} || ${url}
-             `,
-        textbody: `
-        this is sample email gfor email verification!`
+        from: process.env.RESEND_FROM_EMAIL!,
+        to: user.email,
+        html: `
+            Welcome - ${user.name} 
+            Link - ${url}
+        `,
+        subject: 'email verification sample'
+
     })
 };

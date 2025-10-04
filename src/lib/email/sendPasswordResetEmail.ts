@@ -1,4 +1,4 @@
-import { sendEmail } from "./sendEmail"
+import { sendEmail } from "./resend/seneEmail"
 
 
 export async function sendPasswordResetEmail({ user, url }: {
@@ -6,13 +6,13 @@ export async function sendPasswordResetEmail({ user, url }: {
     url: string
 }) {
     return sendEmail({
+        from: process.env.RESEND_FROM_EMAIL!,
         to: user.email,
-        subject: 'reset password',
-        htmlbody: `
-            We have send to ${user?.email} ..
-            " hello world " 
-            Goto ::: ${url}
-        `,
-        textbody: `Welcome  - ${user.name}`,
+        html: `
+                Welcome - ${user.name} 
+                Link - ${url}
+            `,
+        subject: 'password reset sample'
+
     })
 }
